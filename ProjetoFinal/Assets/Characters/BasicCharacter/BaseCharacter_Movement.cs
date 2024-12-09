@@ -14,16 +14,18 @@ public class BasicChar_Movement : MonoBehaviour
     public float gravity = 5.0f; // https://www.youtube.com/watch?v=Gk9a5tQ_NGc
     public bool moveLock = false; // just in case we have to stun the player w/o pausing
     public bool jumpLock = false; // stops player from jumping if not on the ground
+    public bool canDouble = true;
+    public bool canAirDash = true;
 
     private CharacterController controller; // player controller reference
     private Vector3 velocity;
+    private Vector3 dashVelocity;
     private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();    
-        
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,12 @@ public class BasicChar_Movement : MonoBehaviour
 
         if(isGrounded && velocity.y < 0){
             velocity.y = -2f; //em uns tutoriais colocam isso pra manter o personagem no chao se der problema tira pq n sei se é extritamente necessario
+        }
+
+        if (isGrounded && (!canDouble || !canAirDash))
+        {
+            canDouble = true;
+            canAirDash = true;
         }
 
         // Get input for movement
@@ -58,6 +66,32 @@ public class BasicChar_Movement : MonoBehaviour
         {
             //calculate jump velocity
             velocity.y = Mathf.Sqrt(jumpHeight  * gravity);
+        }
+
+        if (!isGrounded && Input.GetButtonDown("Jump") && canDouble)
+        {
+            //calculate jump velocity
+            velocity.y = Mathf.Sqrt(jumpHeight  * gravity);
+            canDouble = false;
+        }
+
+        while (isGrounded && Input.GetButton("Dash"))
+        {
+            float dashSpeed = 1f;
+            if (dashSpeed < maxSpeed + maxSpeed/5)
+                dashSpeed += acceleration*1.5f;
+            dashVelocity = moveDirection * dashSpeed * Time.deltaTime; 
+        }
+
+        if (Input.GetButtonUp("Dash"))
+        {
+            controller.Move(dashVelocity);
+        }
+
+        if (!isGrounded && Input.GetButtonDown("Dash") && canAirDash)
+        {
+            Vector3 dashMove = moveDirection * maxSpeed * Time.deltaTime;
+            controller.Move(dashMove);
         }
         
         //aplica gravidade
