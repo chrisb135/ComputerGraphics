@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 224303819379046831}
   - component: {fileID: 949462358684711918}
   - component: {fileID: 9034306747843007645}
-  - component: {fileID: 1064367860265397397}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -85,18 +84,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!111 &1064367860265397397
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726908037227630623}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0

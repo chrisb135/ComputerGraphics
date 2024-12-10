@@ -11,8 +11,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     Vector3 velocity;
     Vector3 lastMoveDir;
-    Vector3 dashVelocity;
-    public float speed = 6f;
+    public float speed = 30f;
     public float chargedSpeed = 1f;
     public float dashSpeed = 0f;
     float dashingTime = 0f;
